@@ -6,6 +6,7 @@
   border-radius: 8px;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 12px;
 }
 
 .card {
@@ -39,6 +40,11 @@
   flex-direction: column;
   justify-content: center;
   gap: 10px;
+}
+
+.card__title {
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .avatar {
