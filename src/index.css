@@ -6,9 +6,6 @@
   box-sizing: border-box;
 }
 
-.main-container {
-  width: 100vw;
-  height: 100vh;
-  padding-inline: 20px;
-  background-color: #edeef0;
+html {
+  font-family: "Lato", sans-serif;
 }

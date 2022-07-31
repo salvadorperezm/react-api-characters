@@ -1,59 +1,96 @@
 import "./App.css";
-import { Box, SimpleGrid, Button } from "@chakra-ui/react";
-
-import { useState, useEffect } from "react";
-const axios = require("axios");
+import { SimpleGrid, Button } from "@chakra-ui/react";
+import Card from "./Card";
 
 function App() {
-  const [users, setUsers] = useState([]);
-  useEffect(() => {
-    axios
-      .get("https://random-data-api.com/api/users/random_user?size=10")
-      .then((res) => {
-        setUsers(res.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, []);
+  const users = [
+    {
+      id: 1,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 2,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 3,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 4,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 5,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 6,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 7,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 8,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 9,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+    {
+      id: 10,
+      name: "Salvador",
+      profession: "Software Developer",
+      email: "salvador@mail.com",
+      location: "Managua, Nicaragua",
+    },
+  ];
   return (
-    <div className="inner-container">
-      <h1 className="title">
-        <code>React API Characters</code>
-      </h1>
-      <Button
-        colorScheme="blue"
-        className="button"
-        onClick={() => {
-          axios
-            .get("https://random-data-api.com/api/users/random_user?size=10")
-            .then((res) => {
-              setUsers(res.data);
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }}
+    <main className="main-container">
+      <div className="main-container__text">
+        <h1 className="main-container__title">React API Characters</h1>
+        <Button colorScheme="blue">New Characters</Button>
+      </div>
+      <SimpleGrid
+        minChildWidth="200px"
+        className="main-container__grid"
+        gap="20px"
       >
-        New Characters
-      </Button>
-      <SimpleGrid minChildWidth="250px" spacing="20px">
         {users.map((user) => {
-          return (
-            <Box key={user.id} className="card flip-card">
-              <Box>
-                <img src={`${user.avatar}`} alt="avatar" className="avatar" />
-              </Box>
-              <Box className="card__info">
-                <h1>{`${user.first_name} ${user.last_name}`}</h1>
-                <p>{user.employment.title}</p>
-                <p>{user.email}</p>
-              </Box>
-            </Box>
-          );
+          return <Card props={user} key={user.id} />;
         })}
       </SimpleGrid>
-    </div>
+    </main>
   );
 }
 
