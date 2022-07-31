@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-api-characters/static/css/main.931a64dc.css",
+    "main.js": "/react-api-characters/static/js/main.eafec4cc.js",
+    "index.html": "/react-api-characters/index.html",
+    "main.931a64dc.css.map": "/react-api-characters/static/css/main.931a64dc.css.map",
+    "main.eafec4cc.js.map": "/react-api-characters/static/js/main.eafec4cc.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.931a64dc.css",
+    "static/js/main.eafec4cc.js"
+  ]
+}
