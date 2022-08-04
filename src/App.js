@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { SimpleGrid, Button } from "@chakra-ui/react";
+import { SimpleGrid, Button, Input } from "@chakra-ui/react";
 import Card from "./Card";
 const axios = require("axios");
 
@@ -14,37 +14,35 @@ function App() {
   };
 
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState("");
 
-  useEffect(() => {
+  function getData() {
     axios
-      .get("https://random-data-api.com/api/users/random_user?size=10")
+      .get("https://rickandmortyapi.com/api/character")
       .then((res) => {
-        setUsers(res.data);
+        console.log(res.data.results);
+        setUsers(res.data.results);
       })
-      .catch((error) => {
+      .catch(() => {
         setUsers(defaultUser);
       });
+  }
+
+  useEffect(() => {
+    getData();
   }, []);
 
   return (
     <main className="main-container">
       <div className="main-container__text">
-        <h1 className="main-container__title">React API Characters</h1>
-        <Button
-          colorScheme="blue"
-          onClick={() => {
-            axios
-              .get("https://random-data-api.com/api/users/random_user?size=10")
-              .then((res) => {
-                setUsers(res.data);
-              })
-              .catch((error) => {
-                setUsers(defaultUser);
-              });
+        <h1 className="main-container__title">Rick and Morty Characters</h1>
+        <Input
+          placeholder="Search character"
+          onKeyDown={(event) => {
+            setFilteredUsers(event.target.value);
+            console.log(event.target.value);
           }}
-        >
-          New Characters
-        </Button>
+        />
       </div>
       <SimpleGrid
         minChildWidth="200px"
