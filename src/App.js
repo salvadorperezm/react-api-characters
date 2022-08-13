@@ -1,6 +1,6 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { SimpleGrid, Button, Input } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import Card from "./Card";
 const axios = require("axios");
 
@@ -36,13 +36,6 @@ function App() {
     <main className="main-container">
       <div className="main-container__text">
         <h1 className="main-container__title">Rick and Morty Characters</h1>
-        <Input
-          placeholder="Search character"
-          onKeyDown={(event) => {
-            setFilteredUsers(event.target.value);
-            console.log(event.target.value);
-          }}
-        />
       </div>
       <SimpleGrid
         minChildWidth="200px"
