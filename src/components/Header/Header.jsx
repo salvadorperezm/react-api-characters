@@ -11,11 +11,17 @@ import {
   Stack,
 } from '@chakra-ui/react'
 import { HamburgerIcon, CloseIcon } from '@chakra-ui/icons'
+import { Link as RouterLink } from 'react-router-dom'
 
-const Links = ['Characters', 'Episodes', 'Locations']
+const Links = [
+  { linkName: 'Characters', linkUrl: '/react-api-characters/characters' },
+  { linkName: 'Episodes', linkUrl: '/react-api-characters/episodes' },
+  { linkName: 'Locations', linkUrl: '/react-api-characters/locations' },
+]
 
 const NavLink = ({ children }) => (
   <Link
+    as={RouterLink}
     px={2}
     py={1}
     rounded={'md'}
@@ -23,9 +29,9 @@ const NavLink = ({ children }) => (
       textDecoration: 'none',
       bg: useColorModeValue('gray.200', 'gray.700'),
     }}
-    href={'#'}
+    to={children.linkUrl}
   >
-    {children}
+    {children.linkName}
   </Link>
 )
 
@@ -43,17 +49,19 @@ const Header = () => {
         />
         <HStack>
           <Box>
-            <Image
-              src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg'
-              alt='Rick and Morty logo'
-              className='header__logo'
-            />
+            <RouterLink to='/react-api-characters'>
+              <Image
+                src='https://upload.wikimedia.org/wikipedia/commons/b/b1/Rick_and_Morty.svg'
+                alt='Rick and Morty logo'
+                className='header__logo'
+              />
+            </RouterLink>
           </Box>
         </HStack>
         <Flex alignItems={'center'}>
           <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
             {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
+              <NavLink key={link.linkUrl}>{link}</NavLink>
             ))}
           </HStack>
         </Flex>
@@ -63,7 +71,7 @@ const Header = () => {
         <Box pb={4} display={{ md: 'none' }}>
           <Stack as={'nav'} spacing={4}>
             {Links.map((link) => (
-              <NavLink key={link}>{link}</NavLink>
+              <NavLink key={link.linkUrl}>{link}</NavLink>
             ))}
           </Stack>
         </Box>

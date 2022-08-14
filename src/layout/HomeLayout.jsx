@@ -9,7 +9,7 @@ const HomeLayout = ({ children }) => {
                   "footer"`}
       gridTemplateRows={'auto 1fr auto'}
       gridTemplateColumns={'1fr'}
-      width='100vw'
+      h='100vh'
       color='blackAlpha.700'
       fontWeight='bold'
     >
