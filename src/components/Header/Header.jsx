@@ -61,7 +61,12 @@ const Header = () => {
           </Box>
         </HStack>
         <Flex alignItems={'center'}>
-          <HStack as={'nav'} spacing={4} display={{ base: 'none', md: 'flex' }}>
+          <HStack
+            as={'nav'}
+            spacing={4}
+            display={{ base: 'none', md: 'flex' }}
+            color={'#000'}
+          >
             {Links.map((link) => (
               <NavLink key={link.linkUrl}>{link}</NavLink>
             ))}
@@ -71,7 +76,7 @@ const Header = () => {
 
       {isOpen ? (
         <Box pb={4} display={{ md: 'none' }}>
-          <Stack as={'nav'} spacing={4}>
+          <Stack as={'nav'} spacing={4} color={'#000'}>
             {Links.map((link) => (
               <NavLink key={link.linkUrl}>{link}</NavLink>
             ))}

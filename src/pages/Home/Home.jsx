@@ -1,5 +1,7 @@
 import { HomeLayout } from '../../layout/HomeLayout'
 import { Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import { Link } from 'react-router-dom'
+import './HomeStyles.css'
 
 const Home = () => {
   return (
@@ -8,7 +10,7 @@ const Home = () => {
         <Flex p={8} flex={1} align={'center'} justify={'center'}>
           <Stack spacing={6} w={'full'} maxW={'lg'}>
             <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
-              <Text as={'span'} position={'relative'}>
+              <Text as={'span'} color={'#000'}>
                 The Rick And Morty
               </Text>
               <br />{' '}
@@ -21,9 +23,28 @@ const Home = () => {
               </Text>{' '}
             </Heading>
             <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-              Here you can find anything about your favorite characters, also
-              you can look for episodes or even locations that have appeared
-              throughout the whole show.
+              Here you can find anything about your favorite{' '}
+              <Link
+                to='/react-api-characters/characters'
+                className='home-page__link'
+              >
+                characters
+              </Link>
+              ,{' '}
+              <Link
+                to='/react-api-characters/episodes'
+                className='home-page__link'
+              >
+                episodes
+              </Link>{' '}
+              or even{' '}
+              <Link
+                to='/react-api-characters/locations'
+                className='home-page__link'
+              >
+                locations
+              </Link>{' '}
+              that have appeared throughout the whole show.
             </Text>
           </Stack>
         </Flex>
