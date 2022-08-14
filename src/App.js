@@ -2,6 +2,8 @@ import './App.css'
 import { useState, useEffect } from 'react'
 import { SimpleGrid } from '@chakra-ui/react'
 import Card from './Card'
+import { HomeLayout } from '../src/layout/HomeLayout'
+import { BrowserRouter } from 'react-router-dom'
 const axios = require('axios')
 
 function App() {
@@ -33,20 +35,24 @@ function App() {
   }, [])
 
   return (
-    <main className='main-container'>
-      <div className='main-container__text'>
-        <h1 className='main-container__title'>Rick and Morty Characters</h1>
-      </div>
-      <SimpleGrid
-        minChildWidth='200px'
-        className='main-container__grid'
-        gap='20px'
-      >
-        {users.map((user) => {
-          return <Card props={user} key={user.id} />
-        })}
-      </SimpleGrid>
-    </main>
+    <BrowserRouter>
+      <HomeLayout>
+        <main className='main-container'>
+          <div className='main-container__text'>
+            <h1 className='main-container__title'>Rick and Morty Characters</h1>
+          </div>
+          <SimpleGrid
+            minChildWidth='200px'
+            className='main-container__grid'
+            gap='20px'
+          >
+            {users.map((user) => {
+              return <Card props={user} key={user.id} />
+            })}
+          </SimpleGrid>
+        </main>
+      </HomeLayout>
+    </BrowserRouter>
   )
 }
 

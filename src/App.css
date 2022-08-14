@@ -1,6 +1,4 @@
 .main-container {
-  /* border: 1px solid red; */
-
   max-width: 1200px;
   margin: 0 auto;
   padding: 10px;
@@ -19,7 +17,6 @@
 
 .main-container__grid {
   margin-block: 20px;
-  /* border: 1px solid green; */
   place-items: center;
 }
 
