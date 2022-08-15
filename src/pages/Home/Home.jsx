@@ -1,12 +1,23 @@
 import { HomeLayout } from '../../layout/HomeLayout'
-import { Flex, Heading, Image, Stack, Text } from '@chakra-ui/react'
+import {
+  Flex,
+  Heading,
+  Image,
+  Stack,
+  Text,
+  useColorModeValue,
+} from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import './HomeStyles.css'
 
 const Home = () => {
   return (
     <HomeLayout>
-      <Stack minH={'100vh'} direction={{ base: 'column', md: 'row' }}>
+      <Stack
+        minH={'100vh'}
+        direction={{ base: 'column', md: 'row' }}
+        bg={useColorModeValue('gray.50', 'gray.800')}
+      >
         <Flex p={8} flex={1} align={'center'} justify={'center'}>
           <Stack spacing={6} w={'full'} maxW={'lg'}>
             <Heading fontSize={{ base: '3xl', md: '4xl', lg: '5xl' }}>
