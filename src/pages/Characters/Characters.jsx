@@ -15,6 +15,7 @@ const Characters = () => {
   const axios = require('axios')
   const [characters, setCharacters] = useState([])
   const [filteredCharacters, setFilteredCharacters] = useState('')
+  const [filterParam, setFilterParam] = useState('name')
 
   function getData() {
     axios
@@ -74,7 +75,13 @@ const Characters = () => {
                 setFilteredCharacters(event.target.value)
               }}
             />
-            <Select rounded={'full'} width={{ base: '100%', md: '40%' }}>
+            <Select
+              rounded={'full'}
+              width={{ base: '100%', md: '40%' }}
+              onChange={(event) => {
+                setFilterParam(event.target.value)
+              }}
+            >
               <option value='name'>Name</option>
               <option value='status'>Status</option>
               <option value='species'>Species</option>
@@ -87,18 +94,51 @@ const Characters = () => {
             width={'100%'}
             placeItems={'center'}
           >
-            {characters
-              .filter((character) => {
-                if (filteredCharacters === '') {
-                  return character
-                }
-                return character.name
-                  .toLowerCase()
-                  .includes(filteredCharacters.toLowerCase())
-              })
-              .map((character) => {
-                return <Card key={character.id} props={character} />
-              })}
+            {filteredCharacters === ''
+              ? characters.map((character) => {
+                  return <Card key={character.id} props={character} />
+                })
+              : filteredCharacters !== '' && filterParam === 'name'
+              ? characters.map((character) => {
+                  return (
+                    character.name
+                      .toLowerCase()
+                      .includes(filteredCharacters.toLowerCase()) && (
+                      <Card key={character.id} props={character} />
+                    )
+                  )
+                })
+              : filteredCharacters !== '' && filterParam === 'species'
+              ? characters.map((character) => {
+                  return (
+                    character.species
+                      .toLowerCase()
+                      .includes(filteredCharacters.toLowerCase()) && (
+                      <Card key={character.id} props={character} />
+                    )
+                  )
+                })
+              : filteredCharacters !== '' && filterParam === 'location'
+              ? characters.map((character) => {
+                  return (
+                    character.location.name
+                      .toLowerCase()
+                      .includes(filteredCharacters.toLowerCase()) && (
+                      <Card key={character.id} props={character} />
+                    )
+                  )
+                })
+              : filteredCharacters !== '' && filterParam === 'status'
+              ? characters.map((character) => {
+                  return (
+                    character.status
+                      .toLowerCase()
+                      .includes(filteredCharacters.toLowerCase()) && (
+                      <Card key={character.id} props={character} />
+                    )
+                  )
+                })
+              : null}
           </SimpleGrid>
         </Stack>
       </Flex>
