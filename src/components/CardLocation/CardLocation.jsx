@@ -1,38 +1,28 @@
 import { useState } from 'react'
 import { ModalLocation } from '../Modal/ModalLocation'
 
-const CardLocation = ({ props }) => {
-  const [showModal, setShowModal] = useState('off')
-  //   const users = [
-  //     {
-  //       id: 1,
-  //       name: 'salvador',
-  //     },
-  //     {
-  //       id: 2,
-  //       name: 'ramon',
-  //     },
-  //     {
-  //       id: 3,
-  //       name: 'ronald',
-  //     },
-  //   ]
+const CardLocation = ({ location }) => {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <div className='card-episode__container'>
-      <img className='card-episode__image' />
+      <img
+        className='card-episode__image'
+        src='https://c4.wallpaperflare.com/wallpaper/229/145/81/rick-and-morty-wallpaper-preview.jpg'
+      />
       <div className='card-episode__text'>
-        <h1>{props.name}</h1>
-        <p>{props.type}</p>
-        <p>{props.dimension}</p>
+        <h1>{location.name}</h1>
+        <p>{location.type}</p>
+        <p>{location.dimension}</p>
         <button
           onClick={() => {
-            showModal === 'off' ? setShowModal('on') : setShowModal('off')
+            setShowModal((state) => !state)
           }}
         >
-          Show more
+          Show {showModal ? `less` : `more`}
         </button>
       </div>
-      {showModal === 'on' ? <ModalLocation props={props.residents} /> : <></>}
+      {showModal && <ModalLocation residents={location.residents} />}
     </div>
   )
 }

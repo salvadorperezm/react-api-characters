@@ -7,6 +7,8 @@ import {
   SimpleGrid,
   Select,
   Heading,
+  HStack,
+  Button,
 } from '@chakra-ui/react'
 import { CardEpisode } from '../../components/CardEpisode/CardEpisode'
 import { useEffect, useState } from 'react'
@@ -16,10 +18,11 @@ const Episodes = () => {
   const [episodes, setEpisodes] = useState([])
   const [filteredEpisodes, setFilteredEpisodes] = useState('')
   const [filterParam, setFilterParam] = useState('name')
+  const [page, setPage] = useState(1)
 
-  function getData() {
+  function getData(page) {
     axios
-      .get(`${process.env.REACT_APP_PUBLIC_URL}/episode`)
+      .get(`${process.env.REACT_APP_PUBLIC_URL}/episode/?page=${page}`)
       .then((res) => {
         setEpisodes(res.data.results)
       })
@@ -29,7 +32,7 @@ const Episodes = () => {
   }
 
   useEffect(() => {
-    getData()
+    getData(1)
   }, [])
 
   return (
@@ -87,6 +90,29 @@ const Episodes = () => {
               <option value='date'>Date</option>
             </Select>
           </Stack>
+          <HStack>
+            {page !== 1 ? (
+              <Button
+                onClick={() => {
+                  setPage(page - 1)
+                  getData(page)
+                }}
+              >
+                -
+              </Button>
+            ) : (
+              <></>
+            )}
+            <p>Page {page}</p>
+            <Button
+              onClick={() => {
+                setPage(page + 1)
+                getData(page)
+              }}
+            >
+              +
+            </Button>
+          </HStack>
           <SimpleGrid
             minChildWidth={'200px'}
             spacing='20px'

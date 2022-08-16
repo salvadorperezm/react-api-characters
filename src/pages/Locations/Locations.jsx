@@ -7,19 +7,22 @@ import {
   SimpleGrid,
   Select,
   Heading,
+  HStack,
+  Button,
 } from '@chakra-ui/react'
 import { CardLocation } from '../../components/CardLocation/CardLocation'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 const Locations = () => {
-  const axios = require('axios')
   const [locations, setLocations] = useState([])
   const [filteredLocations, setFilteredLocations] = useState('')
   const [filterParam, setFilterParam] = useState('name')
+  const [page, setPage] = useState(1)
 
-  function getData() {
+  function getData(page) {
     axios
-      .get(`${process.env.REACT_APP_PUBLIC_URL}/location`)
+      .get(`${process.env.REACT_APP_PUBLIC_URL}/location/?page=${page}`)
       .then((res) => {
         setLocations(res.data.results)
       })
@@ -29,8 +32,8 @@ const Locations = () => {
   }
 
   useEffect(() => {
-    getData()
-  }, [])
+    getData(page)
+  }, [page])
 
   return (
     <HomeLayout>
@@ -52,7 +55,7 @@ const Locations = () => {
           w={'100%'}
         >
           <Heading color={'#000'} mb={4} textAlign={'center'}>
-            Search for your favorite episode
+            Search for your favorite location
           </Heading>
           <Stack
             spacing={2}
@@ -62,7 +65,7 @@ const Locations = () => {
           >
             <Input
               type={'text'}
-              placeholder={'For example: Pilot'}
+              placeholder={'For example: Earth'}
               color={useColorModeValue('gray.800', 'gray.200')}
               bg={useColorModeValue('gray.100', 'gray.600')}
               rounded={'full'}
@@ -83,10 +86,31 @@ const Locations = () => {
               }}
             >
               <option value='name'>Name</option>
-              <option value='code'>Code</option>
-              <option value='date'>Date</option>
+              <option value='type'>Type</option>
+              <option value='dimension'>Dimension</option>
             </Select>
           </Stack>
+          <HStack>
+            {page !== 1 ? (
+              <Button
+                onClick={() => {
+                  setPage(page - 1)
+                }}
+              >
+                -
+              </Button>
+            ) : (
+              <></>
+            )}
+            <p>Page {page}</p>
+            <Button
+              onClick={() => {
+                setPage(page + 1)
+              }}
+            >
+              +
+            </Button>
+          </HStack>
           <SimpleGrid
             minChildWidth={'200px'}
             spacing='20px'
@@ -95,7 +119,7 @@ const Locations = () => {
           >
             {filteredLocations === ''
               ? locations.map((location) => {
-                  return <CardLocation key={location.id} props={location} />
+                  return <CardLocation key={location.id} location={location} />
                 })
               : filteredLocations !== '' && filterParam === 'name'
               ? locations.map((location) => {
@@ -103,27 +127,27 @@ const Locations = () => {
                     location.name
                       .toLowerCase()
                       .includes(filteredLocations.toLowerCase()) && (
-                      <CardLocation key={location.id} props={location} />
+                      <CardLocation key={location.id} location={location} />
                     )
                   )
                 })
-              : filteredLocations !== '' && filterParam === 'code'
+              : filteredLocations !== '' && filterParam === 'type'
               ? locations.map((location) => {
                   return (
-                    location.episode
+                    location.type
                       .toLowerCase()
                       .includes(filteredLocations.toLowerCase()) && (
-                      <CardLocation key={location.id} props={location} />
+                      <CardLocation key={location.id} location={location} />
                     )
                   )
                 })
-              : filteredLocations !== '' && filterParam === 'date'
+              : filteredLocations !== '' && filterParam === 'dimension'
               ? locations.map((location) => {
                   return (
-                    location.air_date
+                    location.dimension
                       .toLowerCase()
                       .includes(filteredLocations.toLowerCase()) && (
-                      <CardLocation key={location.id} props={location} />
+                      <CardLocation key={location.id} location={location} />
                     )
                   )
                 })

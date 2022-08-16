@@ -7,6 +7,8 @@ import {
   SimpleGrid,
   Select,
   Heading,
+  Button,
+  HStack,
 } from '@chakra-ui/react'
 import { Card } from '../../components/Card/Card'
 import { useEffect, useState } from 'react'
@@ -16,10 +18,11 @@ const Characters = () => {
   const [characters, setCharacters] = useState([])
   const [filteredCharacters, setFilteredCharacters] = useState('')
   const [filterParam, setFilterParam] = useState('name')
+  const [page, setPage] = useState(1)
 
-  function getData() {
+  function getData(page) {
     axios
-      .get(`${process.env.REACT_APP_PUBLIC_URL}/character`)
+      .get(`${process.env.REACT_APP_PUBLIC_URL}/character/?page=${page}`)
       .then((res) => {
         setCharacters(res.data.results)
       })
@@ -29,7 +32,7 @@ const Characters = () => {
   }
 
   useEffect(() => {
-    getData()
+    getData(1)
   }, [])
 
   return (
@@ -88,6 +91,29 @@ const Characters = () => {
               <option value='location'>Location</option>
             </Select>
           </Stack>
+          <HStack>
+            {page !== 1 ? (
+              <Button
+                onClick={() => {
+                  setPage(page - 1)
+                  getData(page)
+                }}
+              >
+                -
+              </Button>
+            ) : (
+              <></>
+            )}
+            <p>Page {page}</p>
+            <Button
+              onClick={() => {
+                setPage(page + 1)
+                getData(page)
+              }}
+            >
+              +
+            </Button>
+          </HStack>
           <SimpleGrid
             minChildWidth={'200px'}
             spacing='20px'
