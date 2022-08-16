@@ -32,8 +32,8 @@ const Characters = () => {
   }
 
   useEffect(() => {
-    getData(1)
-  }, [])
+    getData(page)
+  }, [page])
 
   return (
     <HomeLayout>
@@ -92,11 +92,10 @@ const Characters = () => {
             </Select>
           </Stack>
           <HStack>
-            {page !== 1 ? (
+            {page > 1 ? (
               <Button
                 onClick={() => {
                   setPage(page - 1)
-                  getData(page)
                 }}
               >
                 -
@@ -105,14 +104,17 @@ const Characters = () => {
               <></>
             )}
             <p>Page {page}</p>
-            <Button
-              onClick={() => {
-                setPage(page + 1)
-                getData(page)
-              }}
-            >
-              +
-            </Button>
+            {page < 42 ? (
+              <Button
+                onClick={() => {
+                  setPage(page + 1)
+                }}
+              >
+                +
+              </Button>
+            ) : (
+              <></>
+            )}
           </HStack>
           <SimpleGrid
             minChildWidth={'200px'}

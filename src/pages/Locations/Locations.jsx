@@ -91,7 +91,7 @@ const Locations = () => {
             </Select>
           </Stack>
           <HStack>
-            {page !== 1 ? (
+            {page > 1 ? (
               <Button
                 onClick={() => {
                   setPage(page - 1)
@@ -103,13 +103,17 @@ const Locations = () => {
               <></>
             )}
             <p>Page {page}</p>
-            <Button
-              onClick={() => {
-                setPage(page + 1)
-              }}
-            >
-              +
-            </Button>
+            {page < 7 ? (
+              <Button
+                onClick={() => {
+                  setPage(page + 1)
+                }}
+              >
+                +
+              </Button>
+            ) : (
+              <></>
+            )}
           </HStack>
           <SimpleGrid
             minChildWidth={'200px'}

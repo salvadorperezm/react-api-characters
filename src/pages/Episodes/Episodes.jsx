@@ -32,8 +32,8 @@ const Episodes = () => {
   }
 
   useEffect(() => {
-    getData(1)
-  }, [])
+    getData(page)
+  }, [page])
 
   return (
     <HomeLayout>
@@ -91,11 +91,10 @@ const Episodes = () => {
             </Select>
           </Stack>
           <HStack>
-            {page !== 1 ? (
+            {page > 1 ? (
               <Button
                 onClick={() => {
                   setPage(page - 1)
-                  getData(page)
                 }}
               >
                 -
@@ -104,14 +103,17 @@ const Episodes = () => {
               <></>
             )}
             <p>Page {page}</p>
-            <Button
-              onClick={() => {
-                setPage(page + 1)
-                getData(page)
-              }}
-            >
-              +
-            </Button>
+            {page < 3 ? (
+              <Button
+                onClick={() => {
+                  setPage(page + 1)
+                }}
+              >
+                +
+              </Button>
+            ) : (
+              <></>
+            )}
           </HStack>
           <SimpleGrid
             minChildWidth={'200px'}

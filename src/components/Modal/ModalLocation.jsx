@@ -6,14 +6,12 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-  useDisclosure,
   Button,
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
 
 const ModalLocation = ({ residents }) => {
-  // const { isOpen, onOpen, onClose } = useDisclosure()
   const [open, setOpen] = useState(false)
   const [characters, setCharacters] = useState([])
 
