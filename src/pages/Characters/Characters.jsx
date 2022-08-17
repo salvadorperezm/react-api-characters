@@ -12,19 +12,21 @@ import {
 } from '@chakra-ui/react'
 import { Card } from '../../components/Card/Card'
 import { useEffect, useState } from 'react'
-
+import { ArrowRightIcon, ArrowLeftIcon } from '@chakra-ui/icons'
 const Characters = () => {
   const axios = require('axios')
   const [characters, setCharacters] = useState([])
   const [filteredCharacters, setFilteredCharacters] = useState('')
   const [filterParam, setFilterParam] = useState('name')
   const [page, setPage] = useState(1)
+  const [maxPage, setMaxPage] = useState()
 
   function getData(page) {
     axios
       .get(`${process.env.REACT_APP_PUBLIC_URL}/character/?page=${page}`)
       .then((res) => {
         setCharacters(res.data.results)
+        setMaxPage(res.data.info.pages)
       })
       .catch((error) => {
         console.log(error)
@@ -92,29 +94,41 @@ const Characters = () => {
             </Select>
           </Stack>
           <HStack>
-            {page > 1 ? (
-              <Button
-                onClick={() => {
-                  setPage(page - 1)
-                }}
-              >
-                -
-              </Button>
-            ) : (
-              <></>
-            )}
-            <p>Page {page}</p>
-            {page < 42 ? (
-              <Button
-                onClick={() => {
-                  setPage(page + 1)
-                }}
-              >
-                +
-              </Button>
-            ) : (
-              <></>
-            )}
+            <div>
+              {page > 1 ? (
+                <Button
+                  size={'sm'}
+                  onClick={() => {
+                    setPage(page - 1)
+                  }}
+                >
+                  <ArrowLeftIcon />
+                </Button>
+              ) : (
+                <Button size={'sm'} disabled>
+                  <ArrowLeftIcon />
+                </Button>
+              )}
+            </div>
+            <div>
+              <p>Page {page}</p>
+            </div>
+            <div>
+              {page < maxPage ? (
+                <Button
+                  size={'sm'}
+                  onClick={() => {
+                    setPage(page + 1)
+                  }}
+                >
+                  <ArrowRightIcon />
+                </Button>
+              ) : (
+                <Button size={'sm'} disabled>
+                  <ArrowRightIcon />
+                </Button>
+              )}
+            </div>
           </HStack>
           <SimpleGrid
             minChildWidth={'200px'}
