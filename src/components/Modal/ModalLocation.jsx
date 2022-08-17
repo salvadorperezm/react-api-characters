@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { Card } from '../Card/Card'
 
 const ModalLocation = ({ residents }) => {
   const [open, setOpen] = useState(false)
@@ -30,7 +31,6 @@ const ModalLocation = ({ residents }) => {
         return getData(resident)
       })
     )
-    console.log(map)
 
     return map
   }
@@ -38,15 +38,11 @@ const ModalLocation = ({ residents }) => {
   async function getData(url) {
     try {
       const { data } = await axios.get(`${url}`)
-      console.log(data.name)
-
-      return data.name
+      return data
     } catch (error) {
       console.error(error)
     }
   }
-
-  console.log(characters)
 
   return (
     <>
@@ -57,18 +53,25 @@ const ModalLocation = ({ residents }) => {
         <ModalContent>
           <ModalHeader>Characters that live here</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
-            {characters.length !== 0 &&
-              characters.map((character, index) => {
-                return <li key={`characters-${index}`}>{character}</li>
-              })}
+          <ModalBody
+            display={'flex'}
+            flexDirection={'column'}
+            alignItems={'center'}
+            gap={'10px'}
+          >
+            {characters.length !== 0 ? (
+              characters.map((character) => {
+                return <Card key={character.id} props={character} />
+              })
+            ) : (
+              <h1>This place in inhabited</h1>
+            )}
           </ModalBody>
 
           <ModalFooter>
             <Button colorScheme='blue' mr={3} onClick={() => setOpen(false)}>
               Close
             </Button>
-            <Button variant='ghost'>Secondary Action</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
